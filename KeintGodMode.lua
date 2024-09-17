@@ -4509,8 +4509,7 @@ CMDs[#CMDs + 1] = {NAME = 'userid / id [player]', DESC = 'Notifies a players use
 CMDs[#CMDs + 1] = {NAME = 'copyuserid / copyid [player]', DESC = 'Copies a players user ID to your clipboard'}
 CMDs[#CMDs + 1] = {NAME = 'appearanceid / aid [player]', DESC = 'Notifies a players appearance ID'}
 CMDs[#CMDs + 1] = {NAME = 'copyappearanceid / caid [player]', DESC = 'Copies a players appearance ID to your clipboard'}
-CMDs[#CMDs + 1] = {NAME = 'bang [player] [speed]', DESC = 'owo'}
-CMDs[#CMDs + 1] = {NAME = 'unbang', DESC = 'uwu'}
+CMDs[#CMDs + 1] = {NAME = 'bang kaldırdım knk komutu', DESC = 'xxx'}
 CMDs[#CMDs + 1] = {NAME = 'carpet [player]', DESC = 'Be someones carpet'}
 CMDs[#CMDs + 1] = {NAME = 'uncarpet', DESC = 'Undoes carpet'}
 CMDs[#CMDs + 1] = {NAME = 'friend [player]', DESC = 'Sends a friend request to certain players'}
@@ -10421,45 +10420,6 @@ function getTorso(x)
 	x = x or Players.LocalPlayer.Character
 	return x:FindFirstChild("Torso") or x:FindFirstChild("UpperTorso") or x:FindFirstChild("LowerTorso") or x:FindFirstChild("HumanoidRootPart")
 end
-
-addcmd("bang", {"rape"}, function(args, speaker)
-	execCmd("unbang")
-	wait()
-	local humanoid = speaker.Character:FindFirstChildWhichIsA("Humanoid")
-	bangAnim = Instance.new("Animation")
-	bangAnim.AnimationId = not r15(speaker) and "rbxassetid://148840371" or "rbxassetid://5918726674"
-	bang = humanoid:LoadAnimation(bangAnim)
-	bang:Play(0.1, 1, 1)
-	bang:AdjustSpeed(args[2] or 3)
-	bangDied = humanoid.Died:Connect(function()
-		bang:Stop()
-		bangAnim:Destroy()
-		bangDied:Disconnect()
-		bangLoop:Disconnect()
-	end)
-	if args[1] then
-		local players = getPlayer(args[1], speaker)
-		for _, v in pairs(players) do
-			local bangplr = Players[v].Name
-			local bangOffet = CFrame.new(0, 0, 1.1)
-			bangLoop = RunService.Stepped:Connect(function()
-				pcall(function()
-					local otherRoot = getTorso(Players[bangplr].Character)
-					getRoot(speaker.Character).CFrame = otherRoot.CFrame * bangOffet
-				end)
-			end)
-		end
-	end
-end)
-
-addcmd("unbang", {"unrape"}, function(args, speaker)
-	if bangDied then
-		bangDied:Disconnect()
-		bang:Stop()
-		bangAnim:Destroy()
-		bangLoop:Disconnect()
-	end
-end)
 
 addcmd('carpet',{},function(args, speaker)
 	if not r15(speaker) then
